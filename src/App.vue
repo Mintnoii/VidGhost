@@ -4,7 +4,7 @@
       素材区
     </div>
     <div>
-      <div>
+      <div class="font-bold underline">
       预览区
     </div>
     <div>
@@ -29,6 +29,6 @@
 }
 .materials {
   height: 100vh;
-  width: 20vw; 
+  width: 20vw;
 }
 </style>
