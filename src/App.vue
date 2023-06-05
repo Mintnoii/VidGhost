@@ -9,13 +9,14 @@
     </div>
     <div>
       操作区
+      <TrackEditor />
     </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
+import TrackEditor from '@/features/track/index.vue'
 </script>
 
 <style scoped>
