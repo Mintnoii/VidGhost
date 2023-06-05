@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ffmpeg/core": "^0.11.0",
+    "@ffmpeg/ffmpeg": "^0.11.6",
     "@vueuse/core": "^10.1.2",
     "demuxer": "^2.3.0",
     "mp4-muxer": "^2.1.1",
