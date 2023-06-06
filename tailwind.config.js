@@ -7,6 +7,9 @@ export default {
     './src/**/*.{vue,ts}'
   ],
   theme: {
+    colors: {
+      background: '#1e293b'
+    },
     extend: {},
   },
   plugins: [],
