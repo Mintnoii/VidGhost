@@ -1,11 +1,15 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(),AutoImport({
+  plugins: [
+    vue(),
+    AutoImport({
       dts: './src/typings/auto-imports.d.ts',
       imports: [
         'vue',
@@ -18,14 +22,20 @@ export default defineConfig({
         filepath: './.eslintrc-auto-import.json',
         globalsPropValue: true
       },
-    }),],
-    resolve: {
-      alias: {
-        // 把 @ 指向到 src 目录去
-        '@': resolve(__dirname, './src')
-      }
-    },
-      server: {
+    }),
+    Components({
+      resolvers: [
+        NaiveUiResolver(),
+      ]
+    }),
+  ],
+  resolve: {
+    alias: {
+      // 把 @ 指向到 src 目录去
+      '@': resolve(__dirname, 'src')
+    }
+  },
+  server: {
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',

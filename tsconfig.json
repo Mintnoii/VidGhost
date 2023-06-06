@@ -12,17 +12,18 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
     },
     "types": [
       "vite/client",
-      "@types/dom-webcodecs"
+      "@types/dom-webcodecs",
+      "naive-ui/volar"
     ],
 
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
   "exclude":["dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
