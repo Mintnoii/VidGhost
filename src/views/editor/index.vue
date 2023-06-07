@@ -18,18 +18,19 @@
             :options="menuOptions"
           />
         </n-layout-sider>
-      <n-layout content-style="padding: 24px;" :native-scrollbar="false">
-        预览区
-
-        <Timeline/>
+      <n-layout content-style="padding: 10px; height: 100%" :native-scrollbar="false">
+        <div class="flex flex-col h-full w-full justify-between">
+          <div>预览区</div>
+          <Timeline/>
+      </div>
       </n-layout>
     </n-layout>
   </n-layout>
 </template>
 
 <script setup lang="ts">
-import TrackEditor from '@/features/track/index.vue'
-import Timeline from '@/components/timeline/index.vue'
+// import Timeline from '@/components/timeline/index.vue'
+import Timeline from '@/modules/timeline/index.vue'
 const menuOptions = [
   {
     label: '素材',

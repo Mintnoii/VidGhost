@@ -3,13 +3,11 @@ export default {
   darkMode: 'class',
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    './src/**/*.{vue,ts}'
+    "./src/**/*.{vue,ts,tsx}",
+    "./src/**/**/*.{vue,ts,tsx}",
+
   ],
   theme: {
-    colors: {
-      background: '#1e293b'
-    },
     extend: {},
   },
   plugins: [],
