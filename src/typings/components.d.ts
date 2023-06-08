@@ -19,6 +19,7 @@ declare module 'vue' {
     NLayoutHeader: typeof import('naive-ui')['NLayoutHeader']
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']
     NMenu: typeof import('naive-ui')['NMenu']
+    NSlider: typeof import('naive-ui')['NSlider']
     NTooltip: typeof import('naive-ui')['NTooltip']
     RedoIcon: typeof import('./../components/timeline/icons/RedoIcon.vue')['default']
     SplitIcon: typeof import('./../components/timeline/icons/SplitIcon.vue')['default']

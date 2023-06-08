@@ -1,13 +1,17 @@
 <template>
-  <div class="timeline-container bg-slate-900 w-full h-64 flex flex-col">
+  <!-- 底部的时间轴 -->
+  <div class="flex flex-col bg-zinc-900 h-64 w-full timeline-container">
+    <!-- 控制条 -->
     <ControlBar />
-    时间轴
+    <!-- 操作区 -->
+    <TrackList />
   </div>
 </template>
 
 <script setup lang="ts">
 import useTimeline from './domain'
-import ControlBar from './control-bar.vue';
+import ControlBar from './control-bar/index.vue'
+import TrackList from './track-list/index.vue'
 useTimeline()
 </script>
 

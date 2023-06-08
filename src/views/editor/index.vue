@@ -20,7 +20,9 @@
         </n-layout-sider>
       <n-layout content-style="padding: 10px; height: 100%" :native-scrollbar="false">
         <div class="flex flex-col h-full w-full justify-between">
-          <div>预览区</div>
+          <div>
+            <Monitor/>
+          </div>
           <Timeline/>
       </div>
       </n-layout>
@@ -30,6 +32,7 @@
 
 <script setup lang="ts">
 // import Timeline from '@/components/timeline/index.vue'
+import Monitor from '@/modules/monitor/index.vue'
 import Timeline from '@/modules/timeline/index.vue'
 const menuOptions = [
   {

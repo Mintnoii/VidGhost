@@ -1,7 +1,7 @@
 <template>
-  <div class="pl-4 pb-1 pr-10 w-full h-8 border-y border-violet-200 dark:border-gray-600">
-    <div class="float-left h-8 w-32 flex flex-row flex-nowrap items-center justify-around cursor-pointer">
-      <div v-for="item of icons" :key="item.title" @click="handlerIcon(item)">
+  <div class="border-y border-gray-600 h-10 w-full px-5 dark:border-gray-600 flex justify-between">
+    <div class="flex flex-nowrap h-full w-32 items-center justify-around">
+      <div v-for="item of icons" class="cursor-pointer" :key="item.title" @click="handlerIcon(item)">
         <n-tooltip trigger="hover">
           <template #trigger>
             <SvgIcon :name="item.icon" />
@@ -15,58 +15,43 @@
           /> -->
       </div>
     </div>
-    <!-- <div class="float-right flex w-52 h-9 justify-center items-center">
-      <SubIcon :style="svgStyle" class="cursor-pointer mr-4" @click="changeScale(-10)" />
-      <el-slider v-model="modelValue" v-bind="sliderProps" />
-      <AddIcon :style="svgStyle" class="cursor-pointer ml-4" @click="changeScale(10)" />
-    </div> -->
+    <div class="flex h-full w-40 justify-center items-center">
+      <SvgIcon name="timeline/sub" class="cursor-pointer mr-2" @click="changeScale(-10)" />
+      <n-slider v-model="scaleValue" />
+      <SvgIcon name="timeline/add" class="cursor-pointer ml-2" @click="changeScale(10)" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 // import { usePageState } from '@/stores/pageState';
 // import { useTrackState } from '@/stores/trackState';
+const scaleValue = ref(30)
 // const props = defineProps({
-//   modelValue: {
+//   scaleValue: {
 //     type: Number,
 //     default: 30
 //   }
 // });
 // const emit = defineEmits({
-//   'update:modelValue': val => {
+//   'update:scaleValue': val => {
 //     return val !== null;
 //   }
 // });
-// const modelValue = computed({
+// const scaleValue = computed({
 //   get() {
-//     return props.modelValue;
+//     return props.scaleValue;
 //   },
 //   set(value) {
-//     emit('update:modelValue', value);
+//     emit('update:scaleValue', value);
 //   }
 // });
 // const store = usePageState();
 // const trackStore = useTrackState();
 // const statePoint = computed(() => store._stepInfo.statePoint);
 // const stateLength = computed(() => store._stepInfo.stateLength);
-// const svgStyle = ref({
-//   fontSize: '1.75rem',
-//   padding: '0.25rem',
-//   boxSizing: 'content-box'
-// });
-// const sliderProps = reactive({
-//   showTooltip: false,
-//   size: 'small',
-//   step: 10,
-//   max: 100,
-//   min: 0
-// });
-// function changeScale(val: number) {
-//   let newVal = modelValue.value + val;
-//   if (newVal > sliderProps.max) newVal = sliderProps.max;
-//   if (newVal < sliderProps.min) newVal = sliderProps.min;
-//   modelValue.value = newVal;
-// }
+
+
 const icons = computed(() => [
   {
     title: '撤销',
@@ -92,7 +77,13 @@ const icons = computed(() => [
     icon: 'timeline/delete'
   }
 ]);
-
+const changeScale = (val: number) => {
+  console.log('时间轴缩放比例改为', val);
+  // let newVal = scaleValue.value + val;
+  // if (newVal > sliderProps.max) newVal = sliderProps.max;
+  // if (newVal < sliderProps.min) newVal = sliderProps.min;
+  // scaleValue.value = newVal;
+}
 function handlerIcon(item: Record<string, any>) {
   console.log(item);
   // const { icon: type, disable } = item;
