@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import useTimeline from './domain'
+import useTimeline from './models/index'
 import ControlBar from './control-bar/index.vue'
 import TrackList from './track-list/index.vue'
 useTimeline()

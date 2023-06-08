@@ -1,4 +1,4 @@
-export interface TrackScale {
+interface TrackScale {
     start: number, // 开始坐标 默认0
     step: number,// 步进，与视频fps同步 默认30
     scale: number, // 时间轴缩放比例 默认0
@@ -7,7 +7,7 @@ export interface TrackScale {
       end: number, // 结束帧数 end 默认0
     },
   }
-export interface CanvasConfig {
+interface CanvasConfig {
     width: number,
     height: number,
     bgColor: string, // 背景颜色
@@ -24,7 +24,7 @@ export interface CanvasConfig {
     focusColor: string, // 选中元素区间
     lineColor: string // 底线颜色
 }
-export interface UserConfig {
+interface UserConfig {
     start: number, // 开始坐标
     step: number, // 步进，与视频fps同步
     scale: number, // 时间轴缩放比例
