@@ -17,7 +17,7 @@
     </div>
     <div class="flex h-full w-40 justify-center items-center">
       <SvgIcon name="timeline/sub" class="cursor-pointer mr-2" @click="changeScale(-10)" />
-      <n-slider v-model="scaleValue" />
+      <n-slider :value="timeScale" :min="0" :max="100" :step="10" @update:value="updateTimeScale" />
       <SvgIcon name="timeline/add" class="cursor-pointer ml-2" @click="changeScale(10)" />
     </div>
   </div>
@@ -26,26 +26,8 @@
 <script setup lang="ts">
 // import { usePageState } from '@/stores/pageState';
 // import { useTrackState } from '@/stores/trackState';
-const scaleValue = ref(30)
-// const props = defineProps({
-//   scaleValue: {
-//     type: Number,
-//     default: 30
-//   }
-// });
-// const emit = defineEmits({
-//   'update:scaleValue': val => {
-//     return val !== null;
-//   }
-// });
-// const scaleValue = computed({
-//   get() {
-//     return props.scaleValue;
-//   },
-//   set(value) {
-//     emit('update:scaleValue', value);
-//   }
-// });
+import useTimeline from '@/modules/timeline/models'
+const { timeScale, updateTimeScale } = useTimeline()
 // const store = usePageState();
 // const trackStore = useTrackState();
 // const statePoint = computed(() => store._stepInfo.statePoint);
@@ -78,11 +60,15 @@ const icons = computed(() => [
   }
 ]);
 const changeScale = (val: number) => {
-  console.log('时间轴缩放比例改为', val);
-  // let newVal = scaleValue.value + val;
-  // if (newVal > sliderProps.max) newVal = sliderProps.max;
-  // if (newVal < sliderProps.min) newVal = sliderProps.min;
-  // scaleValue.value = newVal;
+  let newVal = timeScale.value + val
+  if (newVal > 100) {
+    updateTimeScale(100)
+  } else if (newVal < 0) {
+    updateTimeScale(0)
+  } else {
+    updateTimeScale(newVal)
+  }
+  console.log('时间轴缩放比例改为', timeScale.value)
 }
 function handlerIcon(item: Record<string, any>) {
   console.log(item);

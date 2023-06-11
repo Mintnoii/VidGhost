@@ -1,6 +1,6 @@
 <template>
   <div ref="timeScaleContainer" class="h-5 text-center text-sm top-0 right-0 left-0 leading-5 z-20 sticky">
-    <canvas ref="timeScale" v-bind="canvasAttr" :style="canvasStyle" @click="handleClick" />
+    <canvas ref="timeScaleRef" v-bind="canvasAttr" :style="canvasStyle" @click="handleClick" />
   </div>
 </template>
 
@@ -10,6 +10,8 @@ import { useAppModel } from '@/models'
 import { drawTimeLine, getSelectFrame } from '@/modules/timeline/utils/canvasUtil';
 import type { TrackScale, UserConfig, CanvasConfig } from '../index';
 import { ref, computed, onMounted, nextTick, watch, reactive, toRefs } from 'vue';
+import useTimeline from '@/modules/timeline/models'
+const { timeScale, updateTimeScale } = useTimeline()
 
 const props = withDefaults(defineProps<TrackScale>(), {
   start: 0,
@@ -29,7 +31,7 @@ const emits = defineEmits({
  * 初始化 Canvas
  * */
 const timeScaleContainer = ref();
-const timeScale = ref();
+const timeScaleRef = ref();
 let canvasContext = {} as CanvasRenderingContext2D;
 // const { hideSubMenu } = toRefs(usePageState());
 const { isDarkTheme } = useAppModel()
@@ -62,21 +64,21 @@ const canvasStyle = computed(() => {
 });
 // 重绘线条
 const updateTimeLine = () => {
-  drawTimeLine(canvasContext, { ...props } as UserConfig, { ...canvasAttr, ...canvasConfigs.value } as CanvasConfig);
+  drawTimeLine(canvasContext, { ...props, scale: timeScale.value } as UserConfig, { ...canvasAttr, ...canvasConfigs.value } as CanvasConfig);
 }
 // 设置 canvas 上下文环境
 const setCanvasContext = () => {
-  canvasContext = timeScale.value.getContext('2d');
+  canvasContext = timeScaleRef.value.getContext('2d');
   canvasContext.font = `${canvasConfigs.value.textSize * canvasConfigs.value.ratio}px -apple-system, ".SFNSText-Regular", "SF UI Text", "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", "WenQuanYi Zen Hei", "Microsoft YaHei", Arial, sans-serif`;
   canvasContext.lineWidth = canvasConfigs.value.lineWidth;
   canvasContext.textBaseline = canvasConfigs.value.textBaseline;
   canvasContext.textAlign = canvasConfigs.value.textAlign;
 }
-// 设置 timeScale 容器的大小
+// 设置 timeScaleRef 容器的大小
 const setTimeScaleBox = () => {
   if (timeScaleContainer.value) {
     const { width, height } = timeScaleContainer.value.getBoundingClientRect();
-    console.log('timeScale 宽高：', width, height);
+    console.log('timeScaleRef 宽高：', width, height);
     canvasAttr.width = width * canvasConfigs.value.ratio;
     canvasAttr.height = height * canvasConfigs.value.ratio;
     nextTick(() => {
@@ -88,14 +90,22 @@ const setTimeScaleBox = () => {
 }
 function handleClick(event: MouseEvent) {
   const offset = event.offsetX;
-  const frameIndex = getSelectFrame(props.start + offset, props.scale, props.step);
+  const frameIndex = getSelectFrame(props.start + offset, timeScale.value, props.step);
   emits('selectFrame', frameIndex);
 }
 onMounted(() => {
   setTimeScaleBox();
 });
 watch(canvasConfigs, updateTimeLine);
-watch(props, updateTimeLine);
+watch(props, () => {
+  console.log('props 更新了', props);
+  updateTimeLine();
+});
+
+watch(timeScale, () => {
+  console.log('timeScale 更新了', timeScale.value);
+  updateTimeLine();
+});
 // watch(hideSubMenu, () => {
 //   setTimeout(() => {
 //     setTimeScaleBox();
