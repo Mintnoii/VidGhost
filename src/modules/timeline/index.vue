@@ -2,7 +2,7 @@
   <!-- 底部的时间轴 -->
   <div class="flex flex-col bg-zinc-900 h-64 w-full timeline-container">
     <!-- 控制条 -->
-    <ControlBar />
+    <!-- <ControlBar /> -->
     <!-- 操作区 -->
     <TrackList />
   </div>

@@ -8,7 +8,7 @@
 // import { usePageState } from '@/stores/pageState';
 import { useAppModel } from '@/models'
 import { drawTimeLine, getSelectFrame } from '@/modules/timeline/utils/canvasUtil';
-import type { TrackScale, UserConfig, CanvasConfig } from './index';
+import type { TrackScale, UserConfig, CanvasConfig } from '../index';
 import { ref, computed, onMounted, nextTick, watch, reactive, toRefs } from 'vue';
 
 const props = withDefaults(defineProps<TrackScale>(), {
