@@ -2,15 +2,16 @@ import useTimelineStore from './store'
 
 const useTimeline = () => {
   const Store = useTimelineStore()
-  const { frameWidth,timeScale } = storeToRefs(Store)
+  const { frameWidth,rulerScale,trackList} = storeToRefs(Store)
 
   // 更新刻度尺缩放比例
-  const updateTimeScale = (scale:number) => timeScale.value = scale
+  const updateRulerScale = (scale:number) => rulerScale.value = scale
 
   return {
     frameWidth,
-    timeScale,
-    updateTimeScale
+    trackList,
+    rulerScale,
+    updateRulerScale
   }
 }
 

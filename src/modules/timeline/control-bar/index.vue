@@ -17,7 +17,7 @@
     </div>
     <div class="flex h-full w-40 justify-center items-center">
       <SvgIcon name="timeline/sub" class="cursor-pointer mr-2" @click="changeScale(-10)" />
-      <n-slider :value="timeScale" :min="0" :max="100" :step="10" @update:value="updateTimeScale" />
+      <n-slider :value="rulerScale" :min="0" :max="100" :step="10" @update:value="updateRulerScale" />
       <SvgIcon name="timeline/add" class="cursor-pointer ml-2" @click="changeScale(10)" />
     </div>
   </div>
@@ -27,7 +27,7 @@
 // import { usePageState } from '@/stores/pageState';
 // import { useTrackState } from '@/stores/trackState';
 import useTimeline from '@/modules/timeline/models'
-const { timeScale, updateTimeScale } = useTimeline()
+const { rulerScale, updateRulerScale } = useTimeline()
 // const store = usePageState();
 // const trackStore = useTrackState();
 // const statePoint = computed(() => store._stepInfo.statePoint);
@@ -60,15 +60,15 @@ const icons = computed(() => [
   }
 ]);
 const changeScale = (val: number) => {
-  let newVal = timeScale.value + val
+  let newVal = rulerScale.value + val
   if (newVal > 100) {
-    updateTimeScale(100)
+    updateRulerScale(100)
   } else if (newVal < 0) {
-    updateTimeScale(0)
+    updateRulerScale(0)
   } else {
-    updateTimeScale(newVal)
+    updateRulerScale(newVal)
   }
-  console.log('时间轴缩放比例改为', timeScale.value)
+  console.log('时间轴缩放比例改为', rulerScale.value)
 }
 function handlerIcon(item: Record<string, any>) {
   console.log(item);

@@ -4,7 +4,7 @@
     <!-- 控制条 -->
     <ControlBar />
     <!-- 操作区 -->
-    <TrackList />
+    <TrackList class="flex-1" />
   </div>
 </template>
 
