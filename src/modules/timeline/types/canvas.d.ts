@@ -1,12 +1,3 @@
-interface TrackScale {
-    start: number, // 开始坐标 默认0
-    step: number,// 步进，与视频fps同步 默认30
-    scale: number, // 时间轴缩放比例 默认0
-    focusPosition: { // 选中元素时在时间轴中高亮显示
-      start: number, // 起始帧数 start 默认0
-      end: number, // 结束帧数 end 默认0
-    },
-  }
 interface CanvasConfig {
     width: number,
     height: number,

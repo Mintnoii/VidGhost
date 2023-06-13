@@ -8,11 +8,17 @@
 // import { usePageState } from '@/stores/pageState';
 import { useAppModel } from '@/models'
 import { drawTimeLine, getSelectFrame } from '@/modules/timeline/utils/canvasUtil';
-import type { TrackScale, UserConfig, CanvasConfig } from '../index';
-import { ref, computed, onMounted, nextTick, watch, reactive, toRefs } from 'vue';
 import useTimeline from '@/modules/timeline/models'
 const { rulerScale, updateRulerScale } = useTimeline()
-
+interface TrackScale {
+    start: number, // 开始坐标 默认0
+    step: number,// 步进，与视频fps同步 默认30
+    scale: number, // 时间轴缩放比例 默认0
+    focusPosition: { // 选中元素时在时间轴中高亮显示
+      start: number, // 起始帧数 start 默认0
+      end: number, // 结束帧数 end 默认0
+    },
+  }
 const props = withDefaults(defineProps<TrackScale>(), {
   start: 0,
   step: 30,

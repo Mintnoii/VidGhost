@@ -3,9 +3,10 @@
     <ScaleRuler />
     <!-- @wheel="handleWheel" @click="setSelectTract($event, -1, -1)" -->
     <div class="flex-1 overflow-y-auto justify-center flex">
-      <div v-if="trackList.length">
+      <div v-if="true">
         <div>
           trackList
+          <HandlerBox/>
         </div>
       </div>
       <div v-else
@@ -19,6 +20,7 @@
 
 <script setup lang="ts">
 import useTimeline from '@/modules/timeline/models'
+import HandlerBox from './components/handler-box.vue';
 import ScaleRuler from './scale-ruler.vue';
 const { trackList } = useTimeline()
 const handleScroll = () => {
