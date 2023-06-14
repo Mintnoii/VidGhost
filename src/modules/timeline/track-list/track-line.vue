@@ -1,87 +1,92 @@
 <template>
-  <div
-    class="mb-1 mt-1 relative ml-2"
-    :class="[TrackHeightMap.get(lineType), isActive ? 'dark:bg-gray-700 bg-gray-100 bg-opacity-20' : '', isMain ? 'bg-blue-500 bg-opacity-20' : '']"
-  >
-    <!-- <template v-for="(item, index) of lineData" :key="item.id">
-      <TrackItem
-          :lineIndex="lineIndex"
-          :itemIndex="index"
-          :trackItem="item"
-          draggable="true"
-          @dragstart="dragLineHandler($event, 'start', lineIndex, index, item.type)"
-      />
-    </template> -->
+  <div class="w-full">
+     <div :ref="drop" role="Dustbin" class="h-32 w-full text-white p-2 text-center" :style="{ backgroundColor }">
+    {{ isActive ? 'Release to drop' : 'Drag a box here' }}
   </div>
+  <div
+    :ref="drag"
+    role="Box"
+    :style="{ ...style, opacity }"
+    :data-testid="`box-Glass`"
+  >
+    Glass
+  </div>
+  </div>
+  
 </template>
 
 <script setup lang="ts">
-  import { TrackHeightMap } from '@/modules/timeline/constants/index';
-  // import { useTrackState } from '@/stores/trackState';
-  // import TrackItem from '@/components/item/trackItem/TrackItem.vue';
-  // import { usePlayerState } from '@/stores/playerState';
-  const props = defineProps({
-    isMain: {
-      type: Boolean,
-      default: false
-    },
-    lineType: {
-      type: String,
-      default: ''
-    },
-    lineIndex: {
-      type: Number,
-      default: 0
-    },
-    lineData: {
-      type: Array,
-      default() {
-        return [];
-      }
+import { DragPreviewImage, useDrag,useDrop } from 'vue3-dnd'
+import { computed, unref } from 'vue'
+import { toRefs } from '@vueuse/core'
+interface DropResult {
+  name: string
+}
+const [collect1, drop] = useDrop(() => ({
+  accept: 'box',
+  drop: () => ({ name: 'Dustbin' }),
+  collect: monitor => ({
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+  }),
+}))
+const { canDrop, isOver } = toRefs(collect1)
+const isActive = computed(() => unref(canDrop) && unref(isOver))
+const backgroundColor = computed(() =>
+  unref(isActive) ? 'darkgreen' : unref(canDrop) ? 'darkkhaki' : '#222'
+)
+
+const style:any = {
+  border: '1px dashed gray',
+  backgroundColor: 'white',
+  padding: '0.5rem 1rem',
+  marginRight: '1.5rem',
+  marginBottom: '1.5rem',
+  cursor: 'move',
+  float: 'left',
+}
+
+const [collect, drag] = useDrag(() => ({
+  type: 'box',
+  item: () => ({
+    name: 'Glass',
+  }),
+  end: (item, monitor) => {
+    const dropResult = monitor.getDropResult<DropResult>()
+    if (item && dropResult) {
+      alert(`You dropped ${item.name} into ${dropResult.name}!`)
     }
-  });
-  const isActive = ref(false)
-  // const playerStore = usePlayerState();
-  // const store = useTrackState();
-  // const isActive = computed(() => {
-  //   return store.selectTrackItem.line === props.lineIndex;
-  // });
-  // function dragLineHandler(event: DragEvent, type: string, lineIndex: number, index: number, dragType: string) {
-  //   if (type === 'start') {
-  //     playerStore.isPause = true;
-  //     store.dragData.dataInfo = JSON.stringify(store.trackList[lineIndex].list[index]);
-  //     store.dragData.dragType = dragType;
-  //     store.dragData.dragPoint.x = event.offsetX;
-  //     store.dragData.dragPoint.y = event.offsetY;
-  //     store.moveTrackData.lineIndex = lineIndex;
-  //     store.moveTrackData.itemIndex = index;
-  //     store.selectTrackItem.line = -1;
-  //     store.selectTrackItem.index = 0;
-  //   }
-  // }
+  },
+  collect: monitor => ({
+    isDragging: monitor.isDragging(),
+    handlerId: monitor.getHandlerId(),
+  }),
+}))
+
+const { isDragging } = toRefs(collect)
+
+const opacity = computed(() => (unref(isDragging) ? 0.4 : 1))
+// const [collectedProps, dragSource, dragPreview] = useDrag(() => ({
+// 	type: 'BOX',
+// 	item: { id: '1' },
+// }))
+// watchEffect(() => {
+//   console.log('collectedProps', collectedProps)
+// })
 </script>
 
-<style scoped>
-  .showLine-t::after{
-    content: '';
-    display: block;
-    position: absolute;
-    top: 1px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #FCD34D;
-    z-index: 30;
+<style lang="scss" scoped>
+.box {
+  float: left;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 1px solid gray;
+  cursor: move;
+
+  &.dragging {
+    opacity: 0.4;
   }
-  .showLine-b::before{
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: 1px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #FCD34D;
-    z-index: 30;
-  }
+}
 </style>
