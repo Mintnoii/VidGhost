@@ -1,9 +1,11 @@
 <template>
-  <n-config-provider :theme="darkTheme">
-    <DndProvider :backend="HTML5Backend">
+  <div>
+     <DndProvider :backend="HTML5Backend">
     <Editor />
   </DndProvider>
-  </n-config-provider>
+  </div>
+  <!-- <n-config-provider :theme="darkTheme"> -->
+  <!-- </n-config-provider> -->
 </template>
 
 <script setup lang="ts">

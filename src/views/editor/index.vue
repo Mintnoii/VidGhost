@@ -1,8 +1,33 @@
 <template>
-  <n-layout class="h-screen w-screen">
-    <n-layout-header style="height: 64px; padding: 24px" bordered>
+  <div class="h-screen w-screen flex flex-col p-1.5">
+    <section class="h-12 p-2.5 bg-zinc-900 rounded-lg">
       顶部操作区
-    </n-layout-header>
+    </section>
+   <section class="flex-1 flex mt-1.5">
+    <div class="bg-zinc-900 w-16 rounded-lg mr-1.5">导航条</div>
+    <div class="flex flex-col flex-1">
+      <div class="flex w-full h-3/5 mb-1.5">
+        <div class="w-80 bg-zinc-900 h-full rounded-lg">
+          资源素材
+        </div>
+        <div class="flex-1 bg-zinc-900 h-full rounded-lg mx-1.5">
+          <Monitor/>
+        </div>
+        <div class="w-80 bg-zinc-900 h-full rounded-lg">
+            属性编辑
+          </div>
+      </div>
+      <div class="bg-zinc-900 w-full rounded-lg h-2/5">
+        时间轴
+        <!-- <Timeline/> -->
+      </div>
+    </div>
+   </section>
+  </div>
+  <!-- <n-layout class="h-screen w-screen">
+    <header class="h-12 p-2.5 bg-gray-950 rounded-lg">
+      顶部操作区
+    </header>
     <n-layout position="absolute" style="top: 64px" has-sider>
       <n-layout-sider
           bordered
@@ -27,7 +52,7 @@
       </div>
       </n-layout>
     </n-layout>
-  </n-layout>
+  </n-layout> -->
 </template>
 
 <script setup lang="ts">
