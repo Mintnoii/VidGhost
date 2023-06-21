@@ -11,15 +11,14 @@
           资源素材
         </div>
         <div class="flex-1 bg-zinc-900 h-full rounded-lg mx-1.5">
-          <Monitor/>
+          <CanvasEditor/>
         </div>
         <div class="w-80 bg-zinc-900 h-full rounded-lg">
             属性编辑
           </div>
       </div>
       <div class="bg-zinc-900 w-full rounded-lg h-2/5">
-        时间轴
-        <!-- <Timeline/> -->
+        <Timeline/>
       </div>
     </div>
    </section>
@@ -58,6 +57,7 @@
 <script setup lang="ts">
 // import Timeline from '@/components/timeline/index.vue'
 import Monitor from '@/modules/monitor/index.vue'
+import CanvasEditor from '@/modules/canvas/index.vue'
 import Timeline from '@/modules/timeline/index.vue'
 const menuOptions = [
   {

@@ -3,7 +3,7 @@
     <ScaleRuler />
     <!-- @wheel="handleWheel" @click="setSelectTract($event, -1, -1)" -->
     <div class="flex-1 overflow-y-auto justify-center flex">
-      <div v-if="true" class="w-full">
+      <div v-if="false" class="w-full">
         <div class="w-full">
           trackList
           <TrackLine/>

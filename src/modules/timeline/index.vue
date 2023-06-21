@@ -4,14 +4,14 @@
     <!-- 控制条 -->
     <ControlBar />
     <!-- 操作区 -->
-    <TrackList class="flex-1" />
+    <EditArea class="flex-1" />
   </div>
 </template>
 
 <script setup lang="ts">
 import useTimeline from './models/index'
 import ControlBar from './control-bar/index.vue'
-import TrackList from './track-list/index.vue'
+import EditArea from './edit-area/index.vue'
 useTimeline()
 </script>
 

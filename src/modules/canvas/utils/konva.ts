@@ -13,18 +13,26 @@ const loadImage = (url: string) => {
 
 
 const genElementContainer = (data: any, width: number, height: number, zIndex?:number) => {
-  return new Konva.Group({
+  const group = new Konva.Group({
     id: nanoid(),
     zIndex: zIndex || 0,
-    name: 'elementNode',
+    name: 'elementGroup',
     width,
     height,
     // rotation: data.rotation,
     groupId: '',
     draggable: true
-  }
-)
+  })
+  const rect = new Konva.Rect({
+    name: 'backgroundRect',
+    // opacity: getOpacity(data),
+    // fillLinearGradientEndPointY:getHeight(data, 100),
+    draggable: false
+  })
+  group.add(rect)
+  return group
 }
+
 
 
 export {
